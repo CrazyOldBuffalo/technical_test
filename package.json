@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "build": "npm install",
+    "deploy": "SET NODE_ENV=production && ts-node ./index.ts"
   },
   "keywords": [],
   "author": "",
