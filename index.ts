@@ -1,6 +1,8 @@
 import * as readline from "readline";
 import * as process from "process";
 import {retrievePkmnData, retrievePkmnEvolutionData} from "./controllers/pokedexController";
+
+
 function readLineInterface() {
     return readline.createInterface({
         input: process.stdin,
@@ -8,7 +10,7 @@ function readLineInterface() {
     });
 }
 
-function getPkmnName(rl) {
+export function getPkmnName(rl) {
     return new Promise((resolve) => {
         rl.question(`[PokeDex]: Hi Ash, Please enter the name of a pokemon: `, (pkmnName) => {
             if(!pkmnName) {
@@ -61,4 +63,16 @@ async function main() {
     }
 }
 
-main();
+export const readLineInterfaceExported = {
+    readLineInterface
+}
+
+export const getPkmnNameExported = {
+    getPkmnName
+}
+
+export const printEvolutionDataExported = {
+    printEvolutionData
+}
+
+main()

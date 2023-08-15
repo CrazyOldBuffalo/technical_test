@@ -7,6 +7,11 @@ const mockedAxios = axios as jest.Mocked<typeof axios>;
 
 describe("Testing PokedexController API Functions", () => {
 
+    afterEach(() => {
+        jest.clearAllMocks();
+    })
+
+
     describe("Test to call the retreivePkmnData function, for retrieving data from the pokeapi", () => {
         it("Should return a response from the api successfully", async () => {
             const mockResponse = {data: "Bulbasaur data"};
@@ -43,8 +48,60 @@ describe("Testing PokedexController API Functions", () => {
     });
 
     describe('Test to handle an axios response error from the pokeapi with the retrievePkmnData function', () => {
-        it("Should respond with a console error message", async () => {
-            
+        it("Should respond with a console error message if the pokemon doesn't exist or can't be found", async () => {
+            mockedAxios.get.mockRejectedValue({
+                response: {
+                    status: 404,
+                }
+            });
+            const fakeName = "Gibberish"
+            const spy = jest.spyOn(console, "log").mockImplementation();
+            await retrievePkmnData(fakeName);
+            expect(spy).toHaveBeenCalledWith(`[PokeDex]: Ash ${fakeName} Doesn't exist`);
+        });
+    });
+
+    describe('Test to handle an axios response error from the pokeapi with the retrievePkmnData function', () => {
+        it("Should respond with a console error message if promise fails or connection is lost", async () => {
+            mockedAxios.get.mockRejectedValue({
+                response: {
+                    status: 500,
+                }
+            });
+            const spy = jest.spyOn(console, "log").mockImplementation();
+            const fakeName = 'Gibberish';
+            await retrievePkmnData(fakeName);
+            expect(spy).toHaveBeenCalledWith(`[PokeDex]: Ash, I'm having trouble searching for ${fakeName}`);
+        });
+    });
+
+    describe('Test to handle an axios response error from the pokeapi with the retrievePkmnEvolutionData function', () => {
+        it("Should respond with a console error message if pokemon doesn't exist or can't be found", async () => {
+            mockedAxios.get.mockRejectedValue({
+                response: {
+                    status: 404,
+                }
+            });
+            const spy = jest.spyOn(console, "log").mockImplementation();
+            const fakeUrl = 'https://pokeapi.co/api/v2/evolution-chain/Gibberish'
+            const fakeName = 'Gibberish';
+            await retrievePkmnEvolutionData(fakeUrl, fakeName);
+            expect(spy).toHaveBeenCalledWith(`[PokeDex]: Ash there is no Evolution data for ${fakeName}`);
+        });
+    });
+
+    describe('Test to handle an axios response error from the pokeapi with the retrievePkmnEvolutionData function', () => {
+        it("Should respond with a console error message if the promise fails or another issue occurs", async () => {
+            mockedAxios.get.mockRejectedValue({
+                response: {
+                    status: 500,
+                }
+            });
+            const spy = jest.spyOn(console, "log").mockImplementation();
+            const fakeUrl = 'https://pokeapi.co/api/v2/evolution-chain/Gibberish'
+            const fakeName = 'Gibberish';
+            await retrievePkmnEvolutionData(fakeUrl, fakeName);
+            expect(spy).toHaveBeenCalledWith(`[PokeDex]: Hmm I'm unable to find any evolution data for ${fakeName}`);
         });
     });
 });

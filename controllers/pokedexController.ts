@@ -18,7 +18,7 @@ export async function retrievePkmnEvolutionData(pkmnEvolutionChain, pkmnName) {
             console.log(`[PokeDex]: Ash there is no Evolution data for ${pkmnName}`)
         }
         else {
-            console.log(`[PokeDex]: Hmm I Couldn't find the Evolution Data for ${pkmnName}`);
+            console.log(`[PokeDex]: Hmm I'm unable to find any evolution data for ${pkmnName}`);
         }
     });
 }
