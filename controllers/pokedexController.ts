@@ -3,9 +3,7 @@ import {
     evolution404Error,
     evolution500Error,
     data404Error,
-    dataRequestError,
     data500Error,
-    generalError
 } from './errors'
 
 export async function retrievePkmnData(pkmnName) {
@@ -17,12 +15,6 @@ export async function retrievePkmnData(pkmnName) {
         if(error.response.status === 500) {
             console.log(data500Error(pkmnName));
         }
-        if(error.request) {
-            console.log(dataRequestError(pkmnName));
-        }
-        else {
-            console.log(generalError(pkmnName));
-        }
     });
 }
 
@@ -33,12 +25,6 @@ export async function retrievePkmnEvolutionData(pkmnEvolutionChain, pkmnName) {
         }
         if (error.response.status === 500) {
             console.log(evolution500Error(pkmnName));
-        }
-        if (error.request) {
-            console.log(dataRequestError(pkmnName));
-        }
-        else {
-            console.log(generalError(pkmnName));
         }
     });
 }

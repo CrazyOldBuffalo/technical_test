@@ -71,7 +71,7 @@ describe("Testing PokedexController API Functions", () => {
             const spy = jest.spyOn(console, "log").mockImplementation();
             const fakeName = 'Gibberish';
             await retrievePkmnData(fakeName);
-            expect(spy).toHaveBeenCalledWith(`[PokeDex]: Ash, I'm having trouble searching for ${fakeName}`);
+            expect(spy).toHaveBeenCalledWith(`[PokeDex]: Ash I'm unable to search the database for ${fakeName}`);
         });
     });
 
@@ -101,7 +101,7 @@ describe("Testing PokedexController API Functions", () => {
             const fakeUrl = 'https://pokeapi.co/api/v2/evolution-chain/Gibberish'
             const fakeName = 'Gibberish';
             await retrievePkmnEvolutionData(fakeUrl, fakeName);
-            expect(spy).toHaveBeenCalledWith(`[PokeDex]: Hmm I'm unable to find any evolution data for ${fakeName}`);
+            expect(spy).toHaveBeenCalledWith(`[PokeDex]: Ash I'm unable to search for the Evolution Data in the Database for ${fakeName}`);
         });
     });
 });

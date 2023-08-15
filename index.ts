@@ -3,7 +3,7 @@ import * as process from "process";
 import {retrievePkmnData, retrievePkmnEvolutionData} from "./controllers/pokedexController";
 
 
-function readLineInterface() {
+export function readLineInterface() {
     return readline.createInterface({
         input: process.stdin,
         output: process.stdout,
@@ -24,14 +24,14 @@ export function getPkmnName(rl) {
     });
 }
 
-function parseEvolutionData(evolutionData) {
+export function parseEvolutionData(evolutionData) {
     return {
         name: evolutionData.species.name,
         variations: evolutionData.evolves_to.map(parseEvolutionData)
     };
 }
 
-function printEvolutionData(pkmnEvolutionData, pkmnName) {
+export function printEvolutionData(pkmnEvolutionData, pkmnName) {
     const jsonEvolutionData = parseEvolutionData(pkmnEvolutionData.data.chain);
     console.log(`Here's the data I found for ${pkmnName}`)
     console.log(JSON.stringify(jsonEvolutionData, null, 2));
@@ -63,16 +63,5 @@ async function main() {
     }
 }
 
-export const readLineInterfaceExported = {
-    readLineInterface
-}
-
-export const getPkmnNameExported = {
-    getPkmnName
-}
-
-export const printEvolutionDataExported = {
-    printEvolutionData
-}
 
 main()

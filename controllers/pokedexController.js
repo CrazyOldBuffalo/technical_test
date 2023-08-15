@@ -38,6 +38,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.retrievePkmnEvolutionData = exports.retrievePkmnData = void 0;
 var axios_1 = require("axios");
+var errors_1 = require("./errors");
 function retrievePkmnData(pkmnName) {
     return __awaiter(this, void 0, void 0, function () {
         var url;
@@ -45,10 +46,10 @@ function retrievePkmnData(pkmnName) {
             url = "https://pokeapi.co/api/v2/pokemon-species/".concat(pkmnName);
             return [2 /*return*/, axios_1.default.get(url).catch(function (error) {
                     if (error.response.status === 404) {
-                        console.log("[PokeDex]: Ash ".concat(pkmnName, " Doesn't exist"));
+                        console.log((0, errors_1.data404Error)(pkmnName));
                     }
-                    else {
-                        console.log("[PokeDex]: Ash, I'm having trouble searching for ".concat(pkmnName));
+                    if (error.response.status === 500) {
+                        console.log((0, errors_1.data500Error)(pkmnName));
                     }
                 })];
         });
@@ -60,10 +61,10 @@ function retrievePkmnEvolutionData(pkmnEvolutionChain, pkmnName) {
         return __generator(this, function (_a) {
             return [2 /*return*/, axios_1.default.get(pkmnEvolutionChain).catch(function (error) {
                     if (error.response.status === 404) {
-                        console.log("[PokeDex]: Ash there is no Evolution data for ".concat(pkmnName));
+                        console.log((0, errors_1.evolution404Error)(pkmnName));
                     }
-                    else {
-                        console.log("[PokeDex]: Hmm I'm unable to find any evolution data for ".concat(pkmnName));
+                    if (error.response.status === 500) {
+                        console.log((0, errors_1.evolution500Error)(pkmnName));
                     }
                 })];
         });

@@ -36,6 +36,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.printEvolutionData = exports.parseEvolutionData = exports.getPkmnName = exports.readLineInterface = void 0;
 var readline = require("readline");
 var process = require("process");
 var pokedexController_1 = require("./controllers/pokedexController");
@@ -45,6 +46,7 @@ function readLineInterface() {
         output: process.stdout,
     });
 }
+exports.readLineInterface = readLineInterface;
 function getPkmnName(rl) {
     return new Promise(function (resolve) {
         rl.question("[PokeDex]: Hi Ash, Please enter the name of a pokemon: ", function (pkmnName) {
@@ -58,17 +60,20 @@ function getPkmnName(rl) {
         });
     });
 }
+exports.getPkmnName = getPkmnName;
 function parseEvolutionData(evolutionData) {
     return {
         name: evolutionData.species.name,
         variations: evolutionData.evolves_to.map(parseEvolutionData)
     };
 }
+exports.parseEvolutionData = parseEvolutionData;
 function printEvolutionData(pkmnEvolutionData, pkmnName) {
     var jsonEvolutionData = parseEvolutionData(pkmnEvolutionData.data.chain);
     console.log("Here's the data I found for ".concat(pkmnName));
     console.log(JSON.stringify(jsonEvolutionData, null, 2));
 }
+exports.printEvolutionData = printEvolutionData;
 function main() {
     return __awaiter(this, void 0, void 0, function () {
         var rl, pkmnName, pkmnData, evolutionData, error_1;
