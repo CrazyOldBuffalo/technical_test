@@ -41,13 +41,11 @@ async function main() {
         const pkmnName = await getPkmnName(rl);
         const pkmnData = await retrievePkmnData(pkmnName);
         if(!pkmnData) {
-            console.log(`[PokeDex]: Ash I couldn't find anything for ${pkmnName}`);
             rl.close();
             process.exit(1);
         }
         const evolutionData = await retrievePkmnEvolutionData(pkmnData.data.evolution_chain.url, pkmnName);
         if (!evolutionData) {
-            console.log(`[PokeDex]: Ash I couldn't find any Evolution Data for ${pkmnName}]`);
             rl.close();
             process.exit(1);
         }

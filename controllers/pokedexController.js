@@ -43,7 +43,14 @@ function retrievePkmnData(pkmnName) {
         var url;
         return __generator(this, function (_a) {
             url = "https://pokeapi.co/api/v2/pokemon-species/".concat(pkmnName);
-            return [2 /*return*/, axios_1.default.get(url).catch(function () { return console.log("[PokeDex]: Hmm Something went wrong searching for ".concat(pkmnName)); })];
+            return [2 /*return*/, axios_1.default.get(url).catch(function (error) {
+                    if (error.response.status === 404) {
+                        console.log("[PokeDex]: Ash ".concat(pkmnName, " Doesn't exist"));
+                    }
+                    else {
+                        console.log("[PokeDex]: Ash, I'm having trouble searching for ".concat(pkmnName));
+                    }
+                })];
         });
     });
 }
@@ -51,7 +58,14 @@ exports.retrievePkmnData = retrievePkmnData;
 function retrievePkmnEvolutionData(pkmnEvolutionChain, pkmnName) {
     return __awaiter(this, void 0, void 0, function () {
         return __generator(this, function (_a) {
-            return [2 /*return*/, axios_1.default.get(pkmnEvolutionChain).catch(function () { return console.log("[PokeDex]: Hmm I Couldn't find the Evolution Data for ".concat(pkmnName)); })];
+            return [2 /*return*/, axios_1.default.get(pkmnEvolutionChain).catch(function (error) {
+                    if (error.response.status === 404) {
+                        console.log("[PokeDex]: Ash there is no Evolution data for ".concat(pkmnName));
+                    }
+                    else {
+                        console.log("[PokeDex]: Hmm I Couldn't find the Evolution Data for ".concat(pkmnName));
+                    }
+                })];
         });
     });
 }

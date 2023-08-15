@@ -86,7 +86,6 @@ function main() {
                 case 3:
                     pkmnData = _a.sent();
                     if (!pkmnData) {
-                        console.log("[PokeDex]: Ash I couldn't find anything for ".concat(pkmnName));
                         rl.close();
                         process.exit(1);
                     }
@@ -94,7 +93,6 @@ function main() {
                 case 4:
                     evolutionData = _a.sent();
                     if (!evolutionData) {
-                        console.log("[PokeDex]: Ash I couldn't find any Evolution Data for ".concat(pkmnName, "]"));
                         rl.close();
                         process.exit(1);
                     }

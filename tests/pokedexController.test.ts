@@ -5,24 +5,46 @@ import {retrievePkmnData, retrievePkmnEvolutionData} from "../controllers/pokede
 jest.mock("axios");
 const mockedAxios = axios as jest.Mocked<typeof axios>;
 
-describe("Pokemon API functions", () => {
-    afterEach(() => {
-        // Clear all mock data after every test
-        jest.clearAllMocks();
-    });
+describe("Testing PokedexController API Functions", () => {
 
-    describe("retrievePkmnData", () => {
-        it("should successfully fetch pokemon data", async () => {
+    describe("Test to call the retreivePkmnData function, for retrieving data from the pokeapi", () => {
+        it("Should return a response from the api successfully", async () => {
             const mockResponse = {data: "Bulbasaur data"};
             mockedAxios.get.mockResolvedValueOnce(mockResponse);
 
-            const response = await retrievePkmnData("bulbasaur");
+            const responseData = await retrievePkmnData("bulbasaur");
 
             // @ts-ignore
-            expect(response.data).toBe("Bulbasaur data");
+            expect(responseData.data).toBe("Bulbasaur data");
             expect(mockedAxios.get).toHaveBeenCalledWith(
                 "https://pokeapi.co/api/v2/pokemon-species/bulbasaur"
             );
+        });
+    });
+
+    describe("Test to call the retrievePkmnEvolutionData function, retrieving data from the pokeapi", () => {
+        it("Should return a response from the api successfully", async () => {
+            const mockResponse = {
+                data: {
+                    name: "bulbasaur",
+                    chain: ["bulbasaur", "ivysaur", "venusaur"],
+                }
+            };
+            mockedAxios.get.mockResolvedValueOnce(mockResponse)
+            const pkmnName = 'bulbasaur'
+            const evolutionUrl = "https://pokeapi.co/api/v2/evolution-chain/1"
+            const responseData = await retrievePkmnEvolutionData(evolutionUrl, pkmnName);
+            // @ts-ignore
+            expect(responseData.data.name).toBe(pkmnName);
+            // @ts-ignore
+            expect(responseData.data.chain.length).toEqual(3);
+            expect(mockedAxios.get).toHaveBeenCalledWith("https://pokeapi.co/api/v2/evolution-chain/1");
+        });
+    });
+
+    describe('Test to handle an axios response error from the pokeapi with the retrievePkmnData function', () => {
+        it("Should respond with a console error message", async () => {
+            
         });
     });
 });
