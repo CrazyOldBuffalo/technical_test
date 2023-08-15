@@ -17,7 +17,7 @@ Built using Typescript.
 #### Running and Setup
 The initialise the repo, first download it (and if required extract it).
 1. Open the folder within the terminal, such as cmd.
-2. Install the dependencies using `npm init` within the terminal or run the build command `npm build` to set up this for you.
+2. Install the dependencies using `npm init` within the terminal or run the build command `npm run build` to set up this for you.
 3. Run the application using the `npm run deploy` command in the terminal
 
 #### Use
